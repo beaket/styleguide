@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const guides = await getCollection('guides');
+---
+<Base title="Style Guide">
+  <h1>Style Guide</h1>
+  <ul>
+    {guides.map((guide) => (
+      <li>
+        <a href={`/styleguide/${guide.id.replace('.md', '')}/`}>
+          {guide.id.replace('.md', '')}
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>
