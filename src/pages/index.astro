@@ -1,18 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
-const guides = await getCollection('guides');
+const allGuides = await getCollection('guides');
+const readme = allGuides.find((g) => g.id === 'readme');
+const guides = allGuides.filter((g) => g.id !== 'readme');
+
+const { Content } = readme ? await render(readme) : { Content: null };
 ---
-<Base title="Style Guide">
-  <h1>Style Guide</h1>
-  <ul>
-    {guides.map((guide) => (
-      <li>
-        <a href={`/styleguide/${guide.id.replace('.md', '')}/`}>
-          {guide.id.replace('.md', '')}
-        </a>
-      </li>
-    ))}
-  </ul>
+<Base title="Beaket Style Guides" guides={guides}>
+  {Content ? <Content /> : <h1>Beaket Style Guides</h1>}
 </Base>

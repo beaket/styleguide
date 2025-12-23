@@ -1,3 +1,7 @@
+---
+title: JavaScript Style Guide
+---
+
 # JavaScript Style Guide
 
 ## File Naming Convention
